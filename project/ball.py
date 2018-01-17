@@ -10,6 +10,8 @@ class Ball(Turtle):
         self.dx = dx
         self.dy = dy
         self.r = r
+        self.x = x
+        self.y = y
         self.color(color)
     def move(self,screen_width,screen_height):
         current_x = self.xcor()
@@ -25,5 +27,3 @@ class Ball(Turtle):
             self.dx = -self.dx
         elif(up_side_ball >= screen_height or down_side_ball <= -screen_height):
            self.dy = -self.dy
-           
-#MY_BALL = Ball(0,0,0,0,10,"blue")
