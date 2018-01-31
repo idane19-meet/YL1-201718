@@ -23,7 +23,9 @@ class Ball(Turtle):
         left_side_ball = new_x -self.r
         down_side_ball = new_y - self.r
         self.goto(new_x,new_y)
-        if(right_side_ball >= screen_width/2 or left_side_ball <= -screen_width/2):
+        if((right_side_ball >= screen_width and self.dx > 0) or (left_side_ball <= -screen_width and self.dx < 0)):
             self.dx = -self.dx
-        elif(up_side_ball >= screen_height or down_side_ball <= -screen_height):
+            self.clear()
+        elif((up_side_ball >= screen_height and self.dy > 0)or (down_side_ball <= -screen_height and self.dy< 0)):
            self.dy = -self.dy
+           self.clear()
