@@ -6,16 +6,19 @@ import math
 
 turtle.tracer(0)
 turtle.ht()
-
+turtle.bgpic("a.gif")
 RUNNING = True
 sleep = 0.0077
-screen_width = turtle.getcanvas().winfo_width()/2
-screen_height = turtle.getcanvas().winfo_height()/2
-
-MY_BALL = Ball(0,0,0,0,30,"blue")
-number_of_balls = 5
-min_ball_r = 10
-max_ball_r = 50
+screen_width = turtle.getcanvas().winfo_width()
+screen_height = turtle.getcanvas().winfo_height()
+##turtle.screensize(1000,1000)
+turtle.setup(1280,1025)
+MY_BALL = Ball(0,0,0,0,40,"white")
+turtle.pencolor("white")
+turtle.write("radius is: " + str(MY_BALL.r),move=False,align = "center",font=("Arial", 40, "normal"))
+number_of_balls = 10
+min_ball_r = MY_BALL.r-10
+max_ball_r = MY_BALL.r+10
 min_ball_dx = -5
 max_ball_dx = 5
 min_ball_dy = -5
@@ -26,6 +29,9 @@ for i in range(number_of_balls):
     ball_r = random.randint(min_ball_r,max_ball_r)
     x = random.randint(int(-screen_height)+max_ball_r,int(screen_height)-max_ball_r)
     y = random.randint(int(-screen_height)+max_ball_r,int(screen_height)-max_ball_r)
+    while MY_BALL.x == x and MY_BALL.y == y:
+        x = random.randint(int(-screen_height)+max_ball_r,int(screen_height)-max_ball_r)
+        y = random.randint(int(-screen_height)+max_ball_r,int(screen_height)-max_ball_r)
     dx = random.randint(min_ball_dx,max_ball_dx)
     dy = random.randint(min_ball_dy,max_ball_dy)
     while dx == 0 or dy == 0:
@@ -69,7 +75,7 @@ def check_all_balls_collision():
                         dy = random.randint(min_ball_dx+6,max_ball_dx)
                     ball_b.dx = dx
                     ball_b.dy = dy
-                    ball_a.r+=10
+                    ball_a.r+=5
                     ball_a.shapesize(ball_a.r/10)
                     ball_b.shapesize(ball_b.r/10)
                 elif a < b:
@@ -85,9 +91,10 @@ def check_all_balls_collision():
                         dy = random.randint(min_ball_dx+6,max_ball_dx)
                     ball_a.dx = dx
                     ball_a.dy = dy
-                    ball_b.r+=10
+                    ball_b.r+=5
                     ball_a.shapesize(ball_a.r/10)
                     ball_b.shapesize(ball_b.r/10)
+##thor = turtle.clone()
 def check_myball_collision():
     for ball_b in BALLS:
         check1 = collide(MY_BALL,ball_b)
@@ -109,9 +116,11 @@ def check_myball_collision():
                         dy = random.randint(min_ball_dx+6,max_ball_dx)
                     ball_b.dx = dx
                     ball_b.dy = dy
-                    MY_BALL.r+=10
+                    MY_BALL.r+=5
                     MY_BALL.shapesize(MY_BALL.r/10)
                     ball_b.shapesize(ball_b.r/10)
+                    turtle.clear()
+                    turtle.write("radius is: " + str(MY_BALL.r),move=False,align = "center",font=("Arial", 40, "normal"))
     return True
 
 def Movearound(event):
@@ -119,6 +128,25 @@ def Movearound(event):
     MY_BALL.goto(event.x-screen_width,-event.y+screen_height)
 turtle.getcanvas().bind("<Motion>", Movearound)
 turtle.listen()
+
+##food = turtle.clone()
+##food.penup()
+##food.st()
+##food.shape("triangle")
+##food.color("yellow")
+##id1 = []
+##posx = []
+##posxy = []
+##def food1():
+##   for i in range(number_of_balls):
+##       x = random.randint(int(-screen_width),int(screen_width))
+##       y = random.randint(int(-screen_height),int(screen_height))
+##       food.goto(x,y)
+##       id1.append(food.stamp())
+##       posx[i] = food.xcor()
+##       posy[i] = food.ycor()
+
+       
 
 while RUNNING:
     ##print("hi")
@@ -132,5 +160,20 @@ while RUNNING:
     MY_BALL.showturtle()
     turtle.update()
     time.sleep(sleep)
-
+##    for i in range(len(id1)):
+##        if posx[i] == MY_BALL.x and posy[i] == MY_BALL.y:
+##           food.clearstamp(id1[i])
+    ##turtle.penup()
+    ##turtle.goto(250,-300)
+    ##turtle.write("score is :" + str(MY_BALL.r)
+    if MY_BALL.r >= 200:
+        RUNNING = False
+        turtle.clear()
+        turtle.write("you won!!!",move=False,align = "center",font=("Arial", 100, "normal"))
+        turtle.mainloop()
+        print("You won the game!!!")
+    elif RUNNING == False:
+        turtle.clear()
+        turtle.write("you lost!!!",move=False,align = "center",font=("Arial", 100, "normal"))
+        turtle.mainloop()
     
