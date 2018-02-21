@@ -14,7 +14,7 @@ class Border(Turtle):
         #self.tracer(tracer)
 
 
-border=Border(2,'gray',0)
+border=Border(2,'gray',10)
 
 border.penup()
 border.goto(-319,-265)
